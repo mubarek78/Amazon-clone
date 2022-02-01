@@ -1,8 +1,9 @@
 import './App.css';
 import Header from './Components/Header/Header';
 import Home from './Components/Home/Home';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import CheckOut from './Components/CheckOut/CheckOut';
+import {BrowserRouter, Router, Routes, Route} from "react-router-dom"
+import CheckOut from './Components/checkout/Checkout';
+import Orders from './Components/Order/Orders';
 import Login from './Components/Login/Login';
 import React, { useEffect } from "react";
 import { auth } from './Components/firebase/firebase';
@@ -10,11 +11,11 @@ import { useStateValue } from './Components/StateProvider/StateProvider';
 import Payment from './Components/Payment/Payment';
 import {loadStripe} from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
-import Orders from './Components/Orders/Orders';
+// import Orders from './Components/Orders/Orders';
 
 
 
-const promise = loadStripe('pk_test_51ILWaRK6FJ4NvQJQAfitXtvoOesU79Mex29dVJK0y2CXbqoOdmeceakJ0NaCWwvKbUuKTtaSsOj4U2KQeBtfoNZA005UNamqdp');
+const promise = loadStripe('pk_test_51KOCtTDE5OEXGmx2bbPEAWlCzsEip6v3kfJ1TnwuJw3n9bxrISycZlw8SA5HRsQB0Xs1nvPfhQxjTkZjUYQZmsM800c3B2bvJZ');
 
 function App() {
   const [{user}, dispatch] = useStateValue();
@@ -41,33 +42,35 @@ auth.onAuthStateChanged((authUser) => {
 
 
   return (
-    <Router>
-    <div className="App">
-      <Switch> 
-      <Route path="/orders">
-      <Header />
-      <Orders />
-      </Route>
-      <Route path="/login">
-      <Login/>
-      </Route>
-
-      <Route path="/payment">
-      <Elements stripe={promise}> 
+    
+    <Routes>
+    
+    <Route path="/" element={<><Header/><Home/></>}/>
+    <Route path="orders" element={<><Header /><Orders /></>}/>
+     
+      
+      <Route  path="login" element={<><Login/></>}/>
+       
+      <Route  path="payment" element={<> <Payment  stripe={promise}/></>}/>
+      
+      {/* <Route path="/payment">
+      
         <Payment />
-     </Elements>
-      </Route>
-      <Route path="/checkout">
-      <Header />
-      <CheckOut />
-      </Route>
-      <Route path="/">
+     
+      </Route> */}
+     
+      <Route exact path="checkout" element={<><Header/><CheckOut /></>}/>
+      
+      {/* <Route path="/">
       <Header />
       <Home />
-      </Route>
-      </Switch>
-    </div>
-    </Router>
+      </Route> */}
+      
+      
+    
+    </Routes>
+    
+    
   );
 }
 
