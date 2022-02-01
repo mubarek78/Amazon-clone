@@ -10,6 +10,7 @@ import axios from '../axios/axios';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../firebase/firebase';
 
+
 function Payment() { 
 const [{basket, user}, dispatch]= useStateValue();
 
@@ -50,6 +51,7 @@ useEffect(() => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    
     setProcessing(true);
 
     const payload = await stripe
@@ -70,11 +72,10 @@ useEffect(() => {
             amount: paymentIntent.amount,
             created: paymentIntent.created,
           });
-
+        console.log(paymentIntent)
         setSucceeded(true);
         setError(null);
         setProcessing(false);
-
         dispatch({
           type: 'EMPTY_BASKET',
         });

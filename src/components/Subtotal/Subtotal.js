@@ -28,7 +28,7 @@ function Subtotal() {
             thousandSeparator={true}
             prefix={'$'}
             />
-            <button onClick={(e) => history('./payment', {replace: true})}>Proceed to CheckOut</button>
+            <button onClick={(e) => history('/payment', {replace: true})}>Proceed to CheckOut</button>
         </div>
     )
 }

@@ -8,7 +8,7 @@ import Login from './Components/Login/Login';
 import React, { useEffect } from "react";
 import { auth } from './Components/firebase/firebase';
 import { useStateValue } from './Components/StateProvider/StateProvider';
-import Payment from './Components/Payment/Payment';
+import Payments from './Components/Payments/Payments';
 import {loadStripe} from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 // import Orders from './Components/Orders/Orders';
@@ -50,9 +50,9 @@ auth.onAuthStateChanged((authUser) => {
      
       
       <Route  path="login" element={<><Login/></>}/>
-       
-      <Route  path="payment" element={<> <Payment  stripe={promise}/></>}/>
-      
+      {/* <Elements stripe={promise}> */}
+      <Route  path="payment" element={<><Payments /></>}/>
+      {/* <Elements/> */}
       {/* <Route path="/payment">
       
         <Payment />
